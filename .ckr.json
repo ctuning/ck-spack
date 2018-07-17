@@ -5,6 +5,11 @@
   "data_name": "ck-spack",
   "dict": {
     "shared": "git",
-    "url": "https://github.com/ctuning/ck-spack"
+    "url": "https://github.com/ctuning/ck-spack",
+    "repo_deps": [
+      {
+        "repo_uoa": "ck-env"
+      }
+    ] 
   }
 }
