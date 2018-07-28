@@ -10,7 +10,7 @@ It's an on-going project so please be patient.
 
 Resources:
 * [CK framework](http://cKnowledge.org)
-* [CK First steps](https://github.com/ctuning/ck/wiki/First-Steps)
+* [CK first steps](https://github.com/ctuning/ck/wiki/First-Steps)
 * [CK portable workflows](https://github.com/ctuning/ck/wiki/Portable-workflows)
 * [Spack](http://spack.io)
 
