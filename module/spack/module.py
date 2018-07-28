@@ -93,6 +93,8 @@ def import_func(i):
 
         dd['customize']['install_env']['SPACK_PACKAGE_NAME']=package
 
+        dd['package_extra_name']=' ('+package+', native)'
+
         r=ck.access({'action':'update',
                      'module_uoa':cfg['module_deps']['package'],
                      'data_uoa':'spack-'+package,

@@ -24,6 +24,7 @@
   "only_for_target_os_tags": [
     "linux"
   ], 
+  "package_extra_name": " (kaldi, native)", 
   "process_script": "install", 
   "soft_uoa": "7ff725cb43bd8c5b", 
   "suggested_path": "lib-spack-kaldi", 
