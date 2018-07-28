@@ -48,12 +48,19 @@ def import_func(i):
 
     import os
     import shutil
+    import copy
 
     o=i.get('out','')
 
     oo=''
     if o=='con': oo=o
 
+    # Load package meta template
+    pt=os.path.join(work['path'],'package_meta_template.json')
+    r=ck.load_json_file({'json_file':pt})
+    if r['return']>0: return r
+    dd=r['dict']
+    ddd=copy.deepcopy(dd)
 
     # Set env for spack to download it and get path
     r=ck.access({'action':'set',
@@ -71,21 +78,20 @@ def import_func(i):
     if p=='' or not os.path.isdir(p):
        return {'return':1, 'error':'path to spack not found'}
 
-    print (p)
-
     # Get path to packages
     pp=os.path.join(p, 'var', 'spack', 'repos', 'builtin', 'packages')
 
     d=os.listdir(pp)
-    for package in d:
+    for package in sorted(d):
         ck.out('Processing '+package+' ...')
 
-        dd={
-          "tags":[
-             'spack',
-             package
-          ]
-        }
+        dd=copy.deepcopy(ddd)
+
+        dd['tags'].append(package)
+
+        dd['suggested_path']+=package
+
+        dd['customize']['install_env']['SPACK_PACKAGE_NAME']=package
 
         r=ck.access({'action':'update',
                      'module_uoa':cfg['module_deps']['package'],

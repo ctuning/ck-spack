@@ -1,0 +1,40 @@
+{
+  "customize": {
+    "extra_dir": "", 
+    "git_src_dir": "src", 
+    "install_env": {
+      "SPACK_PACKAGE_NAME": "r-biocstyle"
+    }
+  }, 
+  "deps": {
+    "spack": {
+      "local": "yes", 
+      "name": "spack", 
+      "sort": 5, 
+      "tags": "tool,spack"
+    }
+  }, 
+  "end_full_path": {
+    "linux": "ck-spack.json"
+  }, 
+  "need_cpu_info": "yes", 
+  "only_for_host_os_tags": [
+    "linux"
+  ], 
+  "only_for_target_os_tags": [
+    "linux"
+  ], 
+  "process_script": "install", 
+  "soft_uoa": "7ff725cb43bd8c5b", 
+  "suggested_path": "lib-spack-r-biocstyle", 
+  "tags": [
+    "spack", 
+    "native", 
+    "spack-native", 
+    "r-biocstyle"
+  ], 
+  "use_scripts_from_another_entry": {
+    "data_uoa": "1aa53ab7bdac2dfa", 
+    "module_uoa": "script"
+  }
+}

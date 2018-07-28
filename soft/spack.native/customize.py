@@ -1,10 +1,10 @@
 #
-# Collective Knowledge (individual environment - setup)
+# Collective Knowledge (setup native spack environment via CK)
 #
 # See CK LICENSE.txt for licensing details
 # See CK COPYRIGHT.txt for copyright details
 #
-# Developer: Grigori Fursin, Grigori.Fursin@cTuning.org, http://fursin.net
+# Developer: Grigori Fursin, Grigori.Fursin@cTuning.org, http://fursin.net/research
 #
 
 import os
@@ -16,18 +16,22 @@ def dirs(i):
     return {'return':0}
 
 ##############################################################################
-# parse software version
+# get version from path
 
-def parse_version(i):
+def version_cmd(i):
 
-    lst=i['output']
+    ck=i['ck_kernel']
 
-    ver=''
+    fp=i['full_path']
 
-    if len(lst)>0:
-       ver=lst[0].strip()
+    # Load ck-spack.json
+    r=ck.load_json_file({'json_file':fp})
+    if r['return']>0: return r
+    d=r['dict']
 
-    return {'return':0, 'version':ver}
+    ver=d.get('PACKAGE_VERSION','')
+
+    return {'return':0, 'cmd':'', 'version':ver}
 
 ##############################################################################
 # setup environment
@@ -41,12 +45,28 @@ def setup(i):
 
     fp=cus.get('full_path','')
 
-    ep=cus.get('env_prefix','')
+    ep=cus['env_prefix']
     if ep!='' and fp!='':
-       p1=os.path.dirname(fp)
-       p2=os.path.dirname(p1)
+       # Load ck-spack.json
+       r=ck.load_json_file({'json_file':fp})
+       if r['return']>0: return r
+       d=r['dict']
 
-       env[ep]=p2
-       env[ep+'_BIN']=p1
+       spack_root=d.get('SPACK_ROOT','')
+       spack_dir=d.get('SPACK_DIR','')
+       spack_src=d.get('SPACK_SRC','')
+       spack_package_name=d.get('SPACK_PACKAGE_NAME','')
+
+       cspack_package_name=spack_package_name.upper()
+
+       ep+='_'+cspack_package_name
+
+       p1=os.path.dirname(fp)
+
+       env[ep]=p1
+       env[ep+'_SPACK_ROOT']=spack_root
+       env[ep+'_SPACK_DIR']=spack_dir
+       env[ep+'_SPACK_SRC']=spack_src
+       env[ep+'_PACKAGE_NAME']=spack_package_name
 
     return {'return':0, 'bat':s}
